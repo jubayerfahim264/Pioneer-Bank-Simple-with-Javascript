@@ -27,24 +27,26 @@
    <p><strong>Email:</strong> <span id="user-email"></span></p>
    <button id="logout" class="btn btn-danger mt-2">Logout</button>
   </div>
+  <!-- Toast Alert Container -->
+  <!-- <div id="toast" class="toast-alert"></div> -->
   <!-- Transition -->
   <div class="row">
    <div class="col-md-4">
     <div class="status deposite">
      <h5>Deposite</h5>
-     <h2>$<span id="depositeAmount">00</span></h2>
+     <h2>$<span id="depositeAmount" data-raw="0">0</span></h2>
     </div>
    </div>
    <div class="col-md-4">
     <div class="status withdraw">
      <h5>Withdraw</h5>
-     <h2>$<span id="withdrawAmount">00</span></h2>
+     <h2>$<span id="withdrawAmount" data-raw="0">0</span></h2>
     </div>
    </div>
    <div class="col-md-4">
     <div class="status balance">
      <h5>Balance</h5>
-     <h2>$<span id="balanceAmount">1200</span></h2>
+     <h2>$<span id="balanceAmount" data-raw="0">0</span></h2>
     </div>
    </div>
   </div>
@@ -65,6 +67,12 @@
    </div>
   </div>
  </div>
+ <div id="toast" class="toast-alert">
+  <span id="toast-icon" class="me-2"></span>
+  <span id="toast-message"></span>
+  <div id="toast-bar" class="toast-progress"></div>
+ </div>
+
  <!-- Firebase auth -->
  <script type="module" src="dist/js/dashboard.js"></script>
  <script type="module" src="dist/js/transition.js"></script>

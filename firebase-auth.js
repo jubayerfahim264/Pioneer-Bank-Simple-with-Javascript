@@ -12,12 +12,6 @@ import {
   ref,
   set,
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-import {
-  getStorage,
-  ref as sRef,
-  uploadBytes,
-  getDownloadURL,
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
 // 🟡 Firebase config
 const firebaseConfig = {
@@ -35,8 +29,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
-const storage = getStorage(app);
-const dbRef = ref(db);
 
 // ✅ Signup Handler
 
@@ -52,8 +44,6 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
   const address = document.getElementById("address").value.trim();
   const country = document.getElementById("country").value;
   const city = document.getElementById("city").value.trim();
-  const fileInput = document.getElementById("profileImage");
-  const file = fileInput?.files[0];
 
   try {
     const userCred = await createUserWithEmailAndPassword(auth, email, pw);
