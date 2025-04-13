@@ -7,20 +7,29 @@ depositeBtn.addEventListener("click", (e) => {
   const addDeposite = document.getElementById("addDeposite").value;
   const depositeNumber = parseFloat(addDeposite);
 
-  const depositeAmount = document.getElementById("depositeAmount").innerText;
-  const depositeAmountNumber = parseFloat(depositeAmount);
+  updateNumberInput("depositeAmount", depositeNumber);
 
-  const totalDeposite = depositeNumber + depositeAmountNumber;
-
-  document.getElementById("depositeAmount").innerText = totalDeposite;
   document.getElementById("addDeposite").value = "";
   //handle balance
   updateNumberInput("balanceAmount", depositeNumber);
 });
 
+withdrawBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const addWithdraw = document.getElementById("addWithdraw").value;
+  const addWithdrawNumber = parseFloat(addWithdraw);
+
+  const withdrawAmount = document.getElementById("withdrawAmount").innerHTML;
+  const withdrawAmountNumber = parseFloat(withdrawAmount);
+
+  const totalWithdraw = addWithdrawNumber + withdrawAmountNumber;
+  document.getElementById("withdrawAmount").innerHTML = totalWithdraw;
+  document.getElementById("addWithdraw").value = "";
+});
+
 const updateNumberInput = (id, depositeNumber) => {
-  const balanceAmount = document.getElementById(id).innerText;
-  const balanceAmountNumber = parseFloat(balanceAmount);
-  const totalBalance = balanceAmountNumber + depositeNumber;
-  document.getElementById(id).innerText = totalBalance;
+  const Amount = document.getElementById(id).innerText;
+  const AmountNumber = parseFloat(Amount);
+  const total = AmountNumber + depositeNumber;
+  document.getElementById(id).innerText = total;
 };
