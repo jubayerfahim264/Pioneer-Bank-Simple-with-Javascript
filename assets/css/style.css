@@ -1,0 +1,217 @@
+body {
+  padding: 100px;
+}
+.bank-div {
+  width: 100%;
+  padding: 10px;
+  background: #f0f1f5;
+  border-radius: 8px;
+}
+
+.bank-user-div {
+  width: 50%;
+  height: 100%;
+  margin: auto;
+}
+/* ======================== */
+/* From Uiverse.io by mi-series */
+.contain {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.contain header {
+  font-size: 1.2rem;
+  color: #02001e;
+  font-weight: 600;
+  text-align: center;
+}
+
+.contain .form {
+  margin-top: 15px;
+}
+
+.form .input-box {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.input-box label {
+  color: #000;
+}
+
+.form :where(.input-box input, .select-box) {
+  position: relative;
+  height: 35px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #04041a;
+  margin-top: 5px;
+  border: 1px solid #2688ff;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+
+.form .gender-box {
+  margin-top: 10px;
+}
+
+.form :where(.gender-option, .gender) {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+
+.form .gender {
+  column-gap: 5px;
+}
+
+.gender input {
+  accent-color: #3462ee;
+}
+
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+
+.gender label {
+  color: #020331;
+}
+
+.address :where(input, .select-box) {
+  margin-top: 10px;
+}
+
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #02061a;
+  font-size: 1rem;
+  background: none;
+}
+
+.form button {
+  height: 40px;
+  width: 100%;
+  color: #fcfbfb;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #3465ee;
+}
+
+.form button:hover {
+  background: #3443ee;
+}
+/* ======================== */
+
+.form-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+  /* background-color: rgba(17, 24, 39, 1); */
+  padding: 2rem;
+  color: rgba(17, 24, 39, 1);
+}
+
+.title {
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+
+.form {
+  margin-top: 0.5rem;
+}
+
+.input-group {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.input-group label {
+  display: block;
+  color: rgb(28, 28, 28);
+  margin-bottom: 4px;
+}
+
+.input-group input {
+  width: 100%;
+  border: 1px solid rgba(55, 65, 81, 1);
+  outline: 0;
+  background-color: none;
+  padding: 0.75rem 1rem;
+  color: rgba(17, 24, 39, 1);
+}
+
+.input-group input:focus {
+  border-color: rgba(167, 139, 250);
+}
+
+.forgot {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(1, 8, 22);
+  margin: 8px 0 14px 0;
+}
+
+.forgot a,
+.signup a {
+  color: rgb(3, 6, 11);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.forgot a:hover,
+.signup a:hover {
+  text-decoration: underline rgba(167, 139, 250, 1);
+}
+
+.sign {
+  display: block;
+  width: 100%;
+
+  padding: 0.75rem;
+  text-align: center;
+
+  border: none;
+  font-weight: 600;
+}
+
+.signup {
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  margin: 1rem 0;
+  color: rgb(135, 135, 135);
+}
+/* ================= */
+.form-view {
+  display: none;
+}
+.form-view.active {
+  display: block;
+}
