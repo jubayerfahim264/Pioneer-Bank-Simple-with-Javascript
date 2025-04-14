@@ -27,7 +27,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// Function to format number as 1k, 1M,1T etc.
+// Format Number
 function formatNumber(num) {
   if (num >= 1e33) return (num / 1e33).toFixed(1) + "D"; // Decillion
   if (num >= 1e30) return (num / 1e30).toFixed(1) + "N"; // Nonillion
@@ -36,21 +36,20 @@ function formatNumber(num) {
   if (num >= 1e21) return (num / 1e21).toFixed(1) + "Sx"; // Sextillion
   if (num >= 1e18) return (num / 1e18).toFixed(1) + "Qi"; // Quintillion
   if (num >= 1e15) return (num / 1e15).toFixed(1) + "Q"; // Quadrillion
-  if (num >= 1e12) return (num / 1e12).toFixed(1) + "T"; // Trillion
-  if (num >= 1e9) return (num / 1e9).toFixed(1) + "B"; // Billion
-  if (num >= 1e6) return (num / 1e6).toFixed(1) + "M"; // Million
-  if (num >= 1e3) return (num / 1e3).toFixed(1) + "K"; // Thousand
+  if (num >= 1e12) return (num / 1e12).toFixed(1) + "T";
+  if (num >= 1e9) return (num / 1e9).toFixed(1) + "B";
+  if (num >= 1e6) return (num / 1e6).toFixed(1) + "M";
+  if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
   return num.toString();
 }
 
-// Function to Show Toast with Icon and Progress Bar
+// Toast Function
 function showToast(message, type = "success") {
   const toast = document.getElementById("toast");
   const toastMessage = document.getElementById("toast-message");
   const toastBar = document.getElementById("toast-bar");
   const toastIcon = document.getElementById("toast-icon");
 
-  // Icons
   const icons = {
     success: "✅",
     error: "❌",
@@ -58,28 +57,25 @@ function showToast(message, type = "success") {
     warning: "⚠️",
   };
 
-  // Set message & icon
   toastMessage.textContent = message;
   toastIcon.textContent = icons[type] || "ℹ️";
 
-  // Apply class
   toast.className = `toast-alert toast-${type}`;
   toast.style.display = "flex";
 
-  // Reset animation
   toastBar.style.animation = "none";
-  void toastBar.offsetWidth; // Trigger reflow
+  void toastBar.offsetWidth;
   toastBar.style.animation = "shrinkBar 3s linear forwards";
 
-  // Hide after 3 seconds
   setTimeout(() => {
     toast.style.display = "none";
   }, 3000);
 }
-
-// Update UI from Firebase
+//load user data
 const loadUserData = async (uid) => {
-  const snapshot = await get(ref(db, `transactions/${uid}`));
+  const userRef = ref(db, `transactions/${uid}`);
+  const snapshot = await get(userRef);
+
   if (snapshot.exists()) {
     const data = snapshot.val();
     document.getElementById("depositeAmount").innerText = formatNumber(
@@ -92,7 +88,7 @@ const loadUserData = async (uid) => {
       data.balance || 0
     );
   } else {
-    await set(ref(db, `transactions/${uid}`), {
+    await set(userRef, {
       deposite: 0,
       withdraw: 0,
       balance: 0,
@@ -100,18 +96,16 @@ const loadUserData = async (uid) => {
   }
 };
 
-// Deposit Button
+// Deposit
 document.getElementById("depositeBtn").addEventListener("click", async (e) => {
   e.preventDefault();
   const amount = parseFloat(document.getElementById("addDeposite").value);
   if (amount <= 0 || isNaN(amount)) {
-    return showToast("Please enter a valid deposit amount!", "error");
+    return showToast("Please enter a amount!", "error");
   }
 
   const user = auth.currentUser;
-  if (!user) {
-    return showToast("Please login to access your account.", "warning");
-  }
+  if (!user) return showToast("Please login first!", "warning");
 
   const userRef = ref(db, `transactions/${user.uid}`);
   const snapshot = await get(userRef);
@@ -130,7 +124,7 @@ document.getElementById("depositeBtn").addEventListener("click", async (e) => {
   document.getElementById("addDeposite").value = "";
 });
 
-// Withdraw Button
+// Withdraw
 document.getElementById("withdrawBtn").addEventListener("click", async (e) => {
   e.preventDefault();
   const amount = parseFloat(document.getElementById("addWithdraw").value);
@@ -139,9 +133,7 @@ document.getElementById("withdrawBtn").addEventListener("click", async (e) => {
   }
 
   const user = auth.currentUser;
-  if (!user) {
-    return showToast("Please login to access your account.", "warning");
-  }
+  if (!user) return showToast("Please login first!", "warning");
 
   const userRef = ref(db, `transactions/${user.uid}`);
   const snapshot = await get(userRef);
@@ -159,12 +151,12 @@ document.getElementById("withdrawBtn").addEventListener("click", async (e) => {
     balance: newBalance,
   });
 
-  showToast("Withdraw Successful ✅", "success");
+  showToast("Withdraw Successful", "success");
   loadUserData(user.uid);
   document.getElementById("addWithdraw").value = "";
 });
 
-// On Auth
+// Auth Check
 onAuthStateChanged(auth, (user) => {
   if (user && user.emailVerified) {
     loadUserData(user.uid);

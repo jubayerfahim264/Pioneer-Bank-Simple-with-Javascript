@@ -29,27 +29,60 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
+function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
+  const toastMessage = document.getElementById("toast-message");
+  const toastBar = document.getElementById("toast-bar");
+  const toastIcon = document.getElementById("toast-icon");
+
+  const icons = {
+    success: "✅",
+    error: "❌",
+    warning: "⚠️",
+    info: "ℹ️",
+  };
+
+  toastMessage.textContent = message;
+  toastIcon.textContent = icons[type] || "ℹ️";
+
+  toast.className = `toast-alert toast-${type}`;
+  toast.style.display = "flex";
+
+  // Reset animation
+  toastBar.style.animation = "none";
+  void toastBar.offsetWidth;
+  toastBar.style.animation = "shrinkBar 3s linear forwards";
+
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 3000);
+}
 
 // ✅ Signup Handler
 
 document.getElementById("signup-form").addEventListener("submit", async (e) => {
   e.preventDefault();
+
   const name = document.getElementById("full-name").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const dob = document.getElementById("dob").value;
   const email = document.getElementById("email").value.trim();
-  const pw = document.getElementById("pw").value;
+  const password = document.getElementById("pw").value;
   const gender = document.querySelector('input[name="gender"]:checked').value;
   const address = document.getElementById("address").value.trim();
   const country = document.getElementById("country").value;
   const city = document.getElementById("city").value.trim();
 
   try {
-    const userCred = await createUserWithEmailAndPassword(auth, email, pw);
+    const userCred = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     const user = userCred.user;
 
     await sendEmailVerification(user);
-    alert("✅ Signup successful! Verification email sent.");
+    showToast("Signup successful! Verification email sent.");
 
     // ✅ User info save with role, online status
     await set(ref(db, "users/" + user.uid), {
@@ -57,7 +90,7 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
       phone,
       dob,
       email,
-      pw,
+      password,
       gender,
       address,
       country,
@@ -69,7 +102,7 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
     document.getElementById("signup-form").reset();
   } catch (error) {
     console.error(error);
-    alert("❌ Signup error: " + error.message);
+    showToast("Signup error: " + error.message);
   }
 });
 
@@ -86,7 +119,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     const user = userCred.user;
 
     if (!user.emailVerified) {
-      alert("⚠️ Please verify your email before logging in.");
+      showToast("⚠️ Please verify your email.");
       await signOut(auth);
       return;
     }
