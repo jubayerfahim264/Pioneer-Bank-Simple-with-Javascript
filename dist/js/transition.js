@@ -117,7 +117,7 @@ document.getElementById("depositeBtn").addEventListener("click", async (e) => {
     balance: newBalance,
   });
 
-  showToast("Deposit Successful ✅", "success");
+  showToast("Deposit Successful", "success");
   loadUserData(user.uid);
   document.getElementById("addDeposite").value = "";
 });
