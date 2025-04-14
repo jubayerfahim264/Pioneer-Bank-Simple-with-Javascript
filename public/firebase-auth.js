@@ -34,7 +34,6 @@ const db = getDatabase(app);
 
 document.getElementById("signup-form").addEventListener("submit", async (e) => {
   e.preventDefault();
-
   const name = document.getElementById("full-name").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const dob = document.getElementById("dob").value;

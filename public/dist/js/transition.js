@@ -27,11 +27,19 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// Function to format number as 1k, 1M, etc.
+// Function to format number as 1k, 1M,1T etc.
 function formatNumber(num) {
-  if (num >= 1e9) return (num / 1e9).toFixed(1) + "B";
-  if (num >= 1e6) return (num / 1e6).toFixed(1) + "M";
-  if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
+  if (num >= 1e33) return (num / 1e33).toFixed(1) + "D"; // Decillion
+  if (num >= 1e30) return (num / 1e30).toFixed(1) + "N"; // Nonillion
+  if (num >= 1e27) return (num / 1e27).toFixed(1) + "Oc"; // Octillion
+  if (num >= 1e24) return (num / 1e24).toFixed(1) + "Sp"; // Septillion
+  if (num >= 1e21) return (num / 1e21).toFixed(1) + "Sx"; // Sextillion
+  if (num >= 1e18) return (num / 1e18).toFixed(1) + "Qi"; // Quintillion
+  if (num >= 1e15) return (num / 1e15).toFixed(1) + "Q"; // Quadrillion
+  if (num >= 1e12) return (num / 1e12).toFixed(1) + "T"; // Trillion
+  if (num >= 1e9) return (num / 1e9).toFixed(1) + "B"; // Billion
+  if (num >= 1e6) return (num / 1e6).toFixed(1) + "M"; // Million
+  if (num >= 1e3) return (num / 1e3).toFixed(1) + "K"; // Thousand
   return num.toString();
 }
 
